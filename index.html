@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="winner" ></div>
+    <div class="header">
+        <span class="span">
+            x o built by Ahmed Ebrahim
+        </span>
+    </div>
+    <section class="section">
+
+            <div class="items" id="item0"></div>
+            <div class="items" id="item1"></div>
+            <div class="items" id="item2"></div>
+
+            <div class="items" id="item3"></div>
+            <div class="items" id="item4"></div>
+            <div class="items" id="item5"></div>
+
+            <div class="items" id="item6"></div>
+            <div class="items" id="item7"></div>
+            <div class="items" id="item8"></div>
+    </section>
+    <div class="header">
+        <span  class="player span">X</span>
+            <span   class="player btn-new-game span" style="margin:0 0 0 5px ;     cursor: pointer;            ">لعبه جديده</span>
+    </div>
+    <script>
+        var btnNewGame=document.querySelector(".btn-new-game")
+        var items=document.querySelectorAll(".items")
+        var arr=[];
+
+        btnNewGame.onclick=()=>{
+            location.reload();
+        }
+        
+
+
+        function end(num1,num2,num3){
+            document.getElementById("item"+num1).style.background="black";
+            document.getElementById("item"+num2).style.background="black";
+            document.getElementById("item"+num3).style.background="black";
+            document.getElementById("item"+num1).style.color="white";
+            document.getElementById("item"+num2).style.color="white";
+            document.getElementById("item"+num3).style.color="white";
+            const winner=document.querySelector(".player").innerHTML;
+            if(winner=="X")
+                document.querySelector(".winner").innerHTML="player O winner"
+            else
+                document.querySelector(".winner").innerHTML="player X winner"
+            
+            setTimeout(function(){
+                location.reload();
+            },2000)
+            return 0;
+        }
+
+
+
+        Array.from(items).forEach(item=>{
+             item.addEventListener("click",function(){
+                var player=document.querySelector(".player");
+                turn="X";
+                if(player.innerHTML==="X" && item.innerHTML==""){
+                    item.innerHTML="X";
+                    player.innerHTML="O";
+                    turn="O"
+            }
+            else if(player.innerHTML==="O" && item.innerHTML==""){
+                item.innerHTML="O";
+                player.innerHTML="X";
+                turn="X"
+            }
+            for(let i=0;i<9;i++){
+                arr[i]=items[i].innerHTML
+            }
+            
+            if(arr[0]==arr[1] && arr[1]==arr[2] && arr[0]==arr[2] && arr[0] !==""){
+                end(0,1,2)
+            } else if(arr[0]==arr[3] && arr[3]==arr[6] && arr[0]==arr[6]  && arr[6] !==""){
+                end(0,3,6)
+            } 
+            else if(arr[1]==arr[4] && arr[4]==arr[7] && arr[1]==arr[7] && arr[4] !==""){
+                end(1,4,7)
+            } 
+            else if(arr[2]==arr[5] && arr[5]==arr[8] && arr[8]==arr[2] && arr[5] !==""){
+                end(2,5,8)
+                console.log("done");
+            } 
+            else if(arr[3]==arr[4] && arr[5]==arr[4] && arr[3]==arr[5] && arr[3] !==""){
+                end(3,4,5)
+                console.log("done");
+            } 
+            else if(arr[6]==arr[7] && arr[6]==arr[8] && arr[7]==arr[8] && arr[8] !==""){
+                end(6,7,8)
+                console.log("done");
+            } 
+            else if(arr[0]==arr[4] && arr[4]==arr[8] && arr[0]==arr[8] && arr[8] !==""){
+                end(0,4,8)
+                console.log("done");
+            } 
+            else if(arr[2]==arr[4] && arr[4]==arr[6] && arr[2]==arr[6] && arr[4] !==""){
+                end(2,4,6)
+                console.log("done");
+            } 
+        })
+        
+        
+    })
+    
+
+
+    </script>
+
+    <script src="main.js"></script>
+</body>
+</html>
